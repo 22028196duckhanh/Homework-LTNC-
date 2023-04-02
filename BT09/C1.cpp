@@ -5,91 +5,79 @@ int get_len(const char a[]){
 	while (a[cnt]!='\0') cnt++;
 	return cnt;
 }
-
-void swap(const char a[],int i,int j){
-    char* aa = new char;
-    aa = a;
-	char tmp = aa[i];
-	aa[i] =aa[j];
-	aa[j] =tmp;
-	cout << aa << endl;
-	delete aa;
+char* swap(const char a[],int i,int j){
+    char* b = new char;
+	int len = get_len(a);
+	for (int k =0 ; k<len;k++){
+		b[i] = a[i]
+	}
+	b[i] = a[j]; b[j] = a[i]
+	return b;
 }
 
-void del(const char a[],int pos){
+char* del(const char a[],int pos){
 	int len = get_len(a);
-	char* aa = new char;
-	aa = a;
-	while (aa[pos]!='\0'){
-		aa[pos] = aa[pos+1];
-		pos++;
+	char* b = new char;
+	int j =0;
+	for (int i=0;i<len;i++){
+		if (i!= pos)
+		b[j] = arr[i];
+		else j--;
+		j++;
 	}
-	aa[len-1] ='\0';
-	cout << aa << endl;
-	delete aa;
+	b[len-1] ='\0';
+	return b;
 }
 //
-void reverse(const char a[]){
-    char* aa = new char;
-    aa = a;
+char* reverse(const char a[]){
+    char* b = new char;
 	int len = get_len(a);
-	for (int i=0; i<len/2+1;i++){
-		swap(aa,i,len-1-i);
-	}
-	cout << aa << endl;
-	delete aa;
-}
-//
-void delete_char(const char a[], char c){
-	int len = get_len(a);
-	char* aa = new char;
-	aa = a;
 	for (int i=0; i<len;i++){
-		if (aa[i]==c) {
-			del(aa,i);
-			i--;
-		}
+		b[i]  = a[len-1-i];
 	}
-	cout << aa << endl;
-	delete aa;
+	return b;
 }
 //
-void pad_right(const char a[],int n){
+char* delete_char(const char a[], char c){
 	int len = get_len(a);
-	char* aa = new char;
-	aa = a;
-	for (int i= len;i<n;i++){
-		aa[i]=' ';
+	char* b = new char;
+	int j=0;
+	for (int i=0; i<len;i++){
+		if (a[i]!= c) {b[j] = a[i];j++;}
 	}
-	aa[n]='\0';
-	cout << aa << endl;
-	delete aa;
+	b[j] ='\0';
+	return b;
 }
 //
-void pad_left(const char a[],int n){
+char* pad_right(const char a[],int n){
 	int len = get_len(a);
-	char* aa = new char;
-	aa = a;
-	for (int i=n-1;i>=n-len;i--){
-		aa[i] = aa[i-n+len];
+	char* b = new char;
+	for (int i= 0;i<n;i++){
+		if (i<n-len) b[i] =' ';
+		else b[i] = a[i-n+len];
 	}
-	for (int i=0;i<n-len;i++){
-		aa[i] =' ';
-	}
-	aa[n]='\0';
-	cout << aa << endl;
-	delete aa;
+	b[n]='\0';
+	return b;
 }
 //
-void truncate(const char a[],int n){
-	int i = n;
-	char* aa = new char;
-	aa = a;
-	while(aa[i]!='\0'){
-		del(aa,i);
+char* pad_left(const char a[],int n){
+	int len = get_len(a);
+	char* b = new char;
+	for (int i= 0;i<n;i++){
+		if (i>=len) b[i] =' ';
+		else b[i] = a[i];
 	}
-	cout << aa << endl;
-	delete aa;
+	b[n]='\0';
+	return b;
+}
+//
+char* truncate(const char a[],int n){
+	char* b = new char;
+	for (int i=0; i<n;i++){
+		b[i] = a[i];
+	}
+	b[n] = '\0';
+	return b;
 }
 //
 bool is_palindrome(const char a[]){
@@ -99,28 +87,30 @@ bool is_palindrome(const char a[]){
 	}
 	return true;
 }
-//
-void trim_left(const char a[]){
-    char* aa = new char;
-    aa = a;
-	while (aa[0]== ' ')
-	del(aa,0);
-	cout << aa << endl;
-	delete aa;
+char* trim_left(const char a[]){
+	int len =get_len(a);
+    char* b = new char;
+    int i=0;
+	while(a[i]!=' ') i++;
+	for(int j=i;j<len;j++){
+		b[j-i] = a[j];
+	}
+	b[len-i] ='\0';
+	return b;
 }
 //
-void trim_right(const char a[]){
-    char* aa = new char;
-    aa = a;
+char* trim_right(const char a[]){
+    char* b = new char;
 	int tmp = get_len(a)-1;
-	while (aa[tmp]==' '){
+	while (a[tmp]==' '){
 		tmp--;
 	}
 	tmp++;
-	while (aa[tmp]!= '\0')
-	del(aa,tmp);
-	cout << aa << endl;
-	delete aa;
+	for(int i=0; i <tmp;i++){
+		b[i] = a[i];
+	}
+	b[tmp]='\0';
+	return b;
 }
 int main(){
 	char a[] ="  abcdefggfedcba  ";
@@ -131,19 +121,19 @@ int main(){
 	char f[] ="  abcdefggfedcba  ";
 	char g[] ="  abcdefggfedcba  ";
 
-	reverse(a);
+	cout<< reverse(a)<<endl;
 
-   	delete_char(b, 'a');
+   	cout<< delete_char(b, 'a')<<endl;
 
-   	pad_right(c, 23);
+   	cout<< pad_right(c, 23)<<endl;
 
-  	pad_left(d, 23);
+  	cout<< pad_left(d, 23)<<endl;
 
-   	truncate(e,8);
+   	cout<< truncate(e,8)<<endl;
 
-   	trim_right(f);
+   	cout<< trim_right(f)<<endl;
 
-   	trim_left(g);
+   	cout<< trim_left(g)<<endl;
 
 //	cout <<a<<endl<<get_len(a)<<endl;
 //	cout <<b<<endl<<get_len(b)<<endl;
