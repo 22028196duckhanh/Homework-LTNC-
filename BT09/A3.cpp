@@ -7,8 +7,8 @@ int main(){
     a[9] = '\0';
     cerr <<"a: " << "-" << a << "-" << endl;
     cerr <<"c: " << "-" << c << "-" << endl;
-    delete c;
-    cerr << "a after deleting c:" << "-" << a << "-" << endl;
+    delete c; // lỗi ở đây vì c không được cấp phát động nên lệnh delete ở đây là không xác định -> bug
+    cerr << "a after deleting c:" << "-" << a << "-" << endl; // lệnh cerr này không chạy như mong muốn
 
     return 0;
 }
